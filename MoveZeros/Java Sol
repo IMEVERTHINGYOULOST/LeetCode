@@ -1,0 +1,17 @@
+class Solution {
+    public void moveZeroes(int[] nums) {
+        //nums = 0
+        int curr = 0;
+        int iter = 0;
+        for(int i = 0;i<nums.length;i++) {
+            if(nums[curr] != 0) {
+                int tmp = nums[iter];
+                nums[iter] = nums[curr];
+                nums[curr] = tmp;
+                iter++;
+                }            
+          curr++;
+            }            
+        }
+}
+解析：好像不能用while（curr<nums.length）,除了size不同，其他都是一样的
