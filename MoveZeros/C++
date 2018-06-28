@@ -1,5 +1,5 @@
 /************************************************************************************************/
-my c++ way:
+my c++ way(passed):
 void moveZeroes(vector<int>& nums) {
        int srclen = nums.size();
        for(int i = 0;i<nums.size();i++){
@@ -45,12 +45,10 @@ void fill(ForwardIt first, ForwardIt last, const T& value) {
 }
 3. thought from std::erase
 str1.erase(std::remove(str1.begin(), str1.end(), ' '),str1.end());
-
 #include <algorithm>
 #include <string>
 #include <iostream>
-#include <cctype>
- 
+#include <cctype> 
 int main() {
     std::string str1 = "Text with some   spaces";
     str1.erase(std::remove(str1.begin(), str1.end(), ' '),
@@ -70,3 +68,7 @@ Textwithsomewhitespaces
 机理为：通过用保存的元素覆盖元素而从序列中“移去”元素。remove移去的元素为等于val值，
 remove_if移去的是当unarryPred为真的那些元素，然后返回一个迭代器，该迭代器指向未移去的最后一个元素的下一个位置.
 我们需要注意的是，remove函数是通过覆盖移去的，如果容器最后一个值刚好是需要删除的，则它无法覆盖掉容器中最后一个元素！
+
+遗留问题：
+1.std::remove 无法对最后一个元素进行处理
+2.和std::erase以及std::fill就能和最后一个元素进行处理
