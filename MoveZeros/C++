@@ -1,0 +1,72 @@
+/************************************************************************************************/
+my c++ way:
+void moveZeroes(vector<int>& nums) {
+       int srclen = nums.size();
+       for(int i = 0;i<nums.size();i++){
+           if(nums[i] == 0){
+               nums.erase(nums.begin()+i);
+               i--;
+           }
+       }
+       for(int i = nums.size();i<srclen;i++){
+           nums.push_back(0);
+       }
+       return ;
+}
+解析：
+1.nums.erase()的使用：在erase之后需要将i--，此事nums.size()也会发生变化
+  nums.erase(nums.begin()+i);
+  i--;
+  
+/************************************************************************************************/
+other C++ way:
+fill(remove(nums.begin(), nums.end(),0), nums.end(), 0);
+解析：C++11 
+1.std::remove
+template <class ForwardIterator, class T>
+ForwardIterator remove (ForwardIterator first, ForwardIterator last, const T& val) {
+  ForwardIterator result = first;
+  while (first!=last) {
+    if (!(*first == val)) {
+      *result = *first;
+      ++result;
+    }
+    ++first;
+  }
+  return result;
+}
+remove返回的是尾指针
+2.std::fill
+template< class ForwardIt, class T >
+void fill(ForwardIt first, ForwardIt last, const T& value) {
+    for (; first != last; ++first) {
+        *first = value;
+    }
+}
+3. thought from std::erase
+str1.erase(std::remove(str1.begin(), str1.end(), ' '),str1.end());
+
+#include <algorithm>
+#include <string>
+#include <iostream>
+#include <cctype>
+ 
+int main() {
+    std::string str1 = "Text with some   spaces";
+    str1.erase(std::remove(str1.begin(), str1.end(), ' '),
+               str1.end());
+    std::cout << str1 << '\n';
+ 
+    std::string str2 = "Text\n with\tsome \t  whitespaces\n\n";
+    str2.erase(std::remove_if(str2.begin(), 
+                              str2.end(),
+                              [](unsigned char x){return std::isspace(x);}),
+               str2.end());
+    std::cout << str2 << '\n';
+}
+output:
+Textwithsomespaces
+Textwithsomewhitespaces
+机理为：通过用保存的元素覆盖元素而从序列中“移去”元素。remove移去的元素为等于val值，
+remove_if移去的是当unarryPred为真的那些元素，然后返回一个迭代器，该迭代器指向未移去的最后一个元素的下一个位置.
+我们需要注意的是，remove函数是通过覆盖移去的，如果容器最后一个值刚好是需要删除的，则它无法覆盖掉容器中最后一个元素！
