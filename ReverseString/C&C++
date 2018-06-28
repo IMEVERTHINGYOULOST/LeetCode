@@ -1,0 +1,41 @@
+/*****************************************************************/
+my c++ way:
+class Solution {
+public:
+    string reverseString(string s) {
+        string revers ;        
+        printf("s.length is %d \n",s.length());
+        for(int i = s.size()-1;i>=0;i--){
+            printf("%c ",s[i]);
+            //string can use push_back() too
+            revers.push_back(s[i]);        }
+        return revers;
+    }
+};
+解析：额外建立string，从尾到头push_back
+string 也可以使用push_back
+/*****************************************************************/
+other c++ way:
+return string(s.rbegin(),s.rend());
+解析：c++ stl
+iterator.begin()
+iterator.end()指向string的末尾，最后一个字符的下一个位置
+iterator.rbegin()
+iterator.rend()第一个字符的前一个位置
+
+rbegin() = rend() - 1;
+rend() = rbegin() + 1;
+/*****************************************************************/
+my c way:
+char* reverseString(char* s) {
+    int len = strlen(s) ;
+    printf("strlen is %d \n",len);
+    for(int i = 0;i<len/2;i++){
+        char c = s[i];
+        printf("%c-%c \n",s[i],s[len-i-1]);
+        s[i] = s[len-i-1];
+        s[len-i-1] = c;
+    }
+    return s;
+}
+解析：不需要额外创建空间，前后对比
