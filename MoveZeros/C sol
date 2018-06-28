@@ -1,0 +1,16 @@
+/***************************************************************************/
+my C way
+void moveZeroes(int* nums, int numsSize) {
+    int curr = 0;
+    int iter = 0;
+    while(curr<numsSize){
+        if(nums[curr] != 0) {
+            int tmp = nums[iter];
+            nums[iter] = nums[curr];
+            nums[curr] = tmp;
+            iter++;
+        }
+        curr++;
+    }
+}
+思路：在不添加额外空间的前提下交换两个数值，和冒泡排序是一个思路！
